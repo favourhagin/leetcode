@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Audit Rotation Dashboard</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background: #0d1f3c;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #4fc3f7;
+}
+
+#dayLabel {
+  font-size: 20px;
+  margin-bottom: 40px;
+  color: #81d4fa;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.card {
+  background: #1a3a6b;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.avatar, .audited-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #2196f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+
+.avatar img, .audited-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.audit-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.audit {
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: #0288d1;
+  color: #e1f5fe;
+  display: inline-block;
+}
+</style>
+</head>
+<body>
+
+<h1>Audit Rotation Dashboard</h1>
+<div id="dayLabel"></div>
+
+<div class="dashboard" id="dashboard"></div>
+
+<script>
+// Users (add images later)
+const users = [
+  {name:"Osinaka", img:"https://i.ibb.co/KcTgYjKS/Whats-App-Image-2026-03-10-at-17-50-51.jpg"},       // <-- Add your image link here later
+  {name:"Favour Hagin", img:"https://i.ibb.co/qLCKF3MN/Whats-App-Image-2026-03-10-at-18-17-25.jpg"},
+  {name:"Christopher", img:"https://i.ibb.co/WNMS57Vn/Whats-App-Image-2026-03-10-at-18-02-27.jpg"},
+  {name:"Enock Victor", img:"https://i.ibb.co/1fbZgCq3/Whats-App-Image-2026-03-10-at-17-56-09.jpg"},
+  {name:"Emmanuel", img:"https://i.ibb.co/1YsyF9qk/Screenshot-from-2026-03-10-18-37-37.png"},
+  {name:"Roland", img:"https://i.ibb.co/9989MLjC/Whats-App-Image-2026-03-10-at-18-02-26.jpg"},
+  {name:"Celebrate", img:"https://i.ibb.co/GQw0p6zP/Screenshot-from-2026-03-10-18-32-33.png"},
+  {name:"Benjamin", img:"https://i.ibb.co/MDJzwp97/Screenshot-from-2026-03-10-18-33-17.png"},
+  {name:"Solomon", img:"https://i.ibb.co/JwpKrztj/Screenshot-from-2026-03-10-18-34-00.png"}
+];
+
+// Rotation logic based on day
+function getRotation(){
+  const today = new Date().getDay();
+  if(today === 1){
+    document.getElementById("dayLabel").innerText="Monday Audit Rotation";
+    return 0;
+  }
+  if(today === 3){
+    document.getElementById("dayLabel").innerText="Wednesday Audit Rotation";
+    return 1;
+  }
+  if(today === 5){
+    document.getElementById("dayLabel").innerText="Friday Audit Rotation";
+    return 2;
+  }
+  document.getElementById("dayLabel").innerText="Waiting for next audit day";
+  return 0;
+}
+
+// Rotate users array
+function rotateUsers(arr,steps){
+  let list = [...arr];
+  for(let i=0;i<steps;i++){
+    list.push(list.shift());
+  }
+  return list;
+}
+
+// Render dashboard
+const rotation = getRotation();
+const rotatedUsers = rotateUsers(users, rotation);
+const dashboard = document.getElementById("dashboard");
+
+rotatedUsers.forEach((user,index)=>{
+  // Determine who this user audits
+  const auditedIndex = (index+1) % rotatedUsers.length;
+  const audited = rotatedUsers[auditedIndex];
+
+  const div = document.createElement("div");
+  div.className = "card";
+  div.innerHTML = `
+    <div class="avatar">
+      ${user.img ? `<img src="${user.img}" alt="${user.name}">` : ""}
+    </div>
+    <div class="name">${user.name}</div>
+    <div class="audit-container">
+      <div class="audit">Audits →</div>
+      <div class="audited-avatar">
+        ${audited.img ? `<img src="${audited.img}" alt="${audited.name}">` : ""}
+      </div>
+      <div class="name">${audited.name}</div>
+    </div>
+  `;
+  dashboard.appendChild(div);
+});
+</script>
+
+</body>
+</html>
