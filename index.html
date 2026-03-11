@@ -1,181 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Audit Rotation Dashboard</title>
+
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Poppins', Arial, sans-serif;
-  background: #0d1f3c;
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-}
-
-h1 {
-  font-size: 36px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #4fc3f7;
-}
-
-#dayLabel {
-  font-size: 20px;
-  margin-bottom: 40px;
-  color: #81d4fa;
-}
-
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
-  width: 100%;
-  max-width: 1100px;
-}
-
-.card {
-  background: #1a3a6b;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-}
-
-.avatar, .audited-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #2196f3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 12px;
-}
-
-.avatar img, .audited-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.name {
-  font-weight: 600;
-  font-size: 16px;
-  margin-bottom: 6px;
-  color: #fff;
-}
-
-.audit-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.audit {
-  font-size: 14px;
-  padding: 5px 10px;
-  border-radius: 8px;
-  background: #0288d1;
-  color: #e1f5fe;
-  display: inline-block;
-}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',Arial,sans-serif;background:#0d1f3c;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px;}
+h1{font-size:36px;font-weight:600;margin-bottom:10px;color:#4fc3f7;text-align:center;}
+p{text-align:center;max-width:750px;margin-bottom:20px;color:#cfe8ff;}
+#dayLabel{font-size:22px;margin-bottom:10px;color:#81d4fa;text-align:center;}
+#countdown{margin-bottom:25px;font-size:18px;color:#ffcc80;}
+.dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:25px;width:100%;max-width:1200px;margin-bottom:40px;}
+.card{background:#1a3a6b;border-radius:14px;padding:20px;text-align:center;transition:0.3s;box-shadow:0 4px 12px rgba(0,0,0,0.35);}
+.card:hover{transform:translateY(-6px);box-shadow:0 10px 25px rgba(0,0,0,0.6);}
+.highlight{border:3px solid #4caf50;}
+.avatar,.audited-avatar{width:100px;height:100px;border-radius:50%;overflow:hidden;background:#2196f3;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.avatar img,.audited-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.name{font-weight:600;font-size:16px;margin-bottom:6px;}
+.audit{font-size:14px;padding:6px 12px;border-radius:8px;background:#0288d1;color:#e1f5fe;display:inline-block;}
+.no-audit{background:#1e2f55;padding:40px;border-radius:12px;font-size:20px;text-align:center;color:#b3d8ff;max-width:600px;}
+.section{width:100%;max-width:1000px;margin-bottom:40px;}
+.section h2{margin-bottom:10px;color:#4fc3f7;}
+.history-list{font-size:14px;line-height:1.6;}
+button{margin-top:10px;padding:8px 12px;border:none;border-radius:6px;background:#4caf50;color:white;cursor:pointer;}
+button.miss{background:#e53935;}
+button.admin{background:#ff9800;}
+.heatmap{display:grid;grid-template-columns:repeat(30,12px);gap:4px;margin-top:10px;}
+.cell{width:12px;height:12px;background:#1e2f55;}
+.active{background:#4caf50;}
+@media(max-width:600px){h1{font-size:28px;}.avatar,.audited-avatar{width:80px;height:80px;}}
 </style>
+
 </head>
 <body>
 
 <h1>Audit Rotation Dashboard</h1>
-  <p>Audit starts immediately it is 11pm and any one who misses audit pays a fine or is removed.. you should be done with your leet code challenge by 10pm</p>
+
+<p>Audit starts immediately at 11pm. Anyone who misses audit pays a fine or is removed. You should finish your LeetCode challenge by 10pm.</p>
+
 <div id="dayLabel"></div>
+<div id="countdown">Next Audit Countdown</div>
 
 <div class="dashboard" id="dashboard"></div>
 
+<div class="section">
+<h2>Audit History</h2>
+<div id="history" class="history-list"></div>
+<button class="admin" onclick="adminReset()">Admin Reset</button>
+</div>
+
+<div class="section">
+<h2>Audit Consistency</h2>
+<div class="heatmap" id="heatmap"></div>
+</div>
+
 <script>
-// Users (add images later)
+const ADMIN_PASSWORD = "audit123";
+
 const users = [
-  {name:"Osinaka", img:"https://i.ibb.co/KcTgYjKS/Whats-App-Image-2026-03-10-at-17-50-51.jpg"},       // <-- Add your image link here later
-  {name:"Favour Hagin", img:"https://i.ibb.co/qLCKF3MN/Whats-App-Image-2026-03-10-at-18-17-25.jpg"},
-  {name:"Christopher", img:"https://i.ibb.co/WNMS57Vn/Whats-App-Image-2026-03-10-at-18-02-27.jpg"},
-  {name:"Enock Victor", img:"https://i.ibb.co/1fbZgCq3/Whats-App-Image-2026-03-10-at-17-56-09.jpg"},
-  {name:"Emmanuel", img:"https://i.ibb.co/1YsyF9qk/Screenshot-from-2026-03-10-18-37-37.png"},
-  {name:"Roland", img:"https://i.ibb.co/9989MLjC/Whats-App-Image-2026-03-10-at-18-02-26.jpg"},
-  {name:"Celebrate", img:"https://i.ibb.co/GQw0p6zP/Screenshot-from-2026-03-10-18-32-33.png"},
-  {name:"Benjamin", img:"https://i.ibb.co/MDJzwp97/Screenshot-from-2026-03-10-18-33-17.png"},
-  {name:"Solomon", img:"https://i.ibb.co/JwpKrztj/Screenshot-from-2026-03-10-18-34-00.png"}
+{name:"Osinaka", img:"https://i.ibb.co/KcTgYjKS/Whats-App-Image-2026-03-10-at-17-50-51.jpg"},
+{name:"Favour Hagin", img:"https://i.ibb.co/qLCKF3MN/Whats-App-Image-2026-03-10-at-18-17-25.jpg"},
+{name:"Christopher", img:"https://i.ibb.co/WNMS57Vn/Whats-App-Image-2026-03-10-at-18-02-27.jpg"},
+{name:"Enock Victor", img:"https://i.ibb.co/1fbZgCq3/Whats-App-Image-2026-03-10-at-17-56-09.jpg"},
+{name:"Emmanuel", img:"https://i.ibb.co/1YsyF9qk/Screenshot-from-2026-03-10-18-37-37.png"},
+{name:"Roland", img:"https://i.ibb.co/9989MLjC/Whats-App-Image-2026-03-10-at-18-02-26.jpg"},
+{name:"Celebrate", img:"https://i.ibb.co/GQw0p6zP/Screenshot-from-2026-03-10-18-32-33.png"},
+{name:"Benjamin", img:"https://i.ibb.co/MDJzwp97/Screenshot-from-2026-03-10-18-33-17.png"},
+{name:"Solomon", img:"https://i.ibb.co/JwpKrztj/Screenshot-from-2026-03-10-18-34-00.png"}
 ];
 
-// Rotation logic based on day
-function getRotation(){
-  const today = new Date().getDay();
-  if(today === 1){
-    document.getElementById("dayLabel").innerText="Monday Audit Rotation";
-    return 0;
-  }
-  if(today === 3){
-    document.getElementById("dayLabel").innerText="Wednesday Audit Rotation";
-    return 1;
-  }
-  if(today === 5){
-    document.getElementById("dayLabel").innerText="Friday Audit Rotation";
-    return 2;
-  }
-  document.getElementById("dayLabel").innerText="Waiting for next audit day";
-  return 0;
+// --- Daily reset mechanism ---
+function checkDailyReset(){
+    const todayStr = new Date().toLocaleDateString();
+    const lastDate = localStorage.getItem("lastAuditDate");
+    if(lastDate !== todayStr){
+        localStorage.setItem("auditHistory","[]");
+        localStorage.setItem("lastAuditDate", todayStr);
+    }
 }
 
-// Rotate users array
-function rotateUsers(arr,steps){
-  let list = [...arr];
-  for(let i=0;i<steps;i++){
-    list.push(list.shift());
+// --- Rotation helpers ---
+function getAuditIndex(){
+  const startDate=new Date("2026-03-09"); const today=new Date();
+  let count=0;
+  for(let d=new Date(startDate); d<=today; d.setDate(d.getDate()+1)){
+    const day=d.getDay();
+    if(day===1||day===3||day===5) count++;
   }
-  return list;
+  return count-1;
 }
 
-// Render dashboard
-const rotation = getRotation();
-const rotatedUsers = rotateUsers(users, rotation);
-const dashboard = document.getElementById("dashboard");
+function generatePairs(step){
+  let arr=[...users];
+  for(let i=0;i<step;i++){
+    const last=arr.pop();
+    arr.splice(1,0,last);
+  }
+  return arr;
+}
 
-rotatedUsers.forEach((user,index)=>{
-  // Determine who this user audits
-  const auditedIndex = (index+1) % rotatedUsers.length;
-  const audited = rotatedUsers[auditedIndex];
+// --- Dashboard rendering ---
+function renderDashboard(){
+  const todayNum = new Date().getDay();
+  const dashboard = document.getElementById("dashboard");
+  const label = document.getElementById("dayLabel");
 
-  const div = document.createElement("div");
-  div.className = "card";
-  div.innerHTML = `
-    <div class="avatar">
-      ${user.img ? `<img src="${user.img}" alt="${user.name}">` : ""}
-    </div>
-    <div class="name">${user.name}</div>
-    <div class="audit-container">
+  if(todayNum!==1 && todayNum!==3 && todayNum!==5){
+    label.innerText = "🚫 No Audit Today (Mon • Wed • Fri at 11PM)";
+    dashboard.innerHTML = "";
+    return;
+  }
+
+  label.innerText = todayNum===1?"Monday Audit Rotation":todayNum===3?"Wednesday Audit Rotation":"Friday Audit Rotation";
+
+  const step = getAuditIndex();
+  const rotated = generatePairs(step);
+
+  let history = JSON.parse(localStorage.getItem("auditHistory")||"[]");
+  const todayStr = new Date().toLocaleDateString();
+
+  dashboard.innerHTML="";
+
+  rotated.forEach((auditorIndex,index)=>{
+    const auditor = rotated[index];
+    const auditee = rotated[(index+1)%rotated.length];
+    const card = document.createElement("div");
+    card.className="card";
+
+    // Highlight if already done today
+    if(history.find(item=>item.auditor===auditor.name && item.date===todayStr && !item.missed)){
+      card.classList.add("highlight");
+    }
+
+    // Check if buttons should be disabled
+    const doneDisabled = history.find(item=>item.auditor===auditor.name && item.auditee===auditee && item.date===todayStr && !item.missed);
+    const missDisabled = history.find(item=>item.auditor===auditor.name && item.auditee===auditee && item.date===todayStr && item.missed);
+
+    card.innerHTML=`
+      <div class="avatar">${auditor.img?`<img src="${auditor.img}">`:""}</div>
+      <div class="name">${auditor.name}</div>
       <div class="audit">Audits →</div>
-      <div class="audited-avatar">
-        ${audited.img ? `<img src="${audited.img}" alt="${audited.name}">` : ""}
-      </div>
-      <div class="name">${audited.name}</div>
-    </div>
-  `;
-  dashboard.appendChild(div);
-});
+      <div class="audited-avatar">${auditee.img?`<img src="${auditee.img}">`:""}</div>
+      <div class="name">${auditee.name}</div>
+      <button onclick="markDone('${auditor.name}','${auditee.name}', this)" ${doneDisabled?'disabled':''}>Audit Done</button>
+      <button class="miss" onclick="markMiss('${auditor.name}','${auditee.name}', this)" ${missDisabled?'disabled':''}>Missed</button>
+    `;
+    dashboard.appendChild(card);
+  });
+}
+
+// --- Audit functions ---
+function markDone(auditor, auditee, btn){
+  const pass = prompt(`Enter password for ${auditor}:`);
+  if(pass !== auditor+"@1234"){ alert("Wrong password"); return; }
+
+  let history = JSON.parse(localStorage.getItem("auditHistory")||"[]");
+  const todayStr = new Date().toLocaleDateString();
+  if(history.find(item=>item.auditor===auditor && item.auditee===auditee && item.date===todayStr && !item.missed)){
+    alert("Audit already submitted today"); return;
+  }
+
+  history.push({auditor, auditee, date:todayStr});
+  localStorage.setItem("auditHistory", JSON.stringify(history));
+
+  btn.disabled=true;
+  renderDashboard();
+  renderHistory();
+  updateHeatmap();
+  alert(`${auditor} audited ${auditee}`);
+}
+
+function markMiss(auditor, auditee, btn){
+  const pass = prompt(`Enter password for ${auditor} to mark missed:`);
+  if(pass !== auditor+"@1234"){ alert("Wrong password"); return; }
+
+  let history = JSON.parse(localStorage.getItem("auditHistory")||"[]");
+  const todayStr = new Date().toLocaleDateString();
+  history.push({auditor, auditee, date:todayStr, missed:true});
+  localStorage.setItem("auditHistory", JSON.stringify(history));
+
+  btn.disabled=true;
+  renderDashboard();
+  renderHistory();
+  updateHeatmap();
+  alert(`${auditor} missed auditing ${auditee}`);
+}
+
+// --- History and heatmap ---
+function renderHistory(){
+  let history = JSON.parse(localStorage.getItem("auditHistory")||"[]");
+  const historyList = history.slice(-15).reverse().map(h=>{
+    if(h.missed){
+      return `${h.date} - ${h.auditor}: ${h.auditee} MISSED ❌`;
+    } else {
+      return `${h.date} - ${h.auditor}: ${h.auditee} completed audit`;
+    }
+  }).join("<br>");
+  document.getElementById("history").innerHTML = historyList;
+}
+
+function updateHeatmap(){
+  const map = document.getElementById("heatmap");
+  map.innerHTML="";
+  let history = JSON.parse(localStorage.getItem("auditHistory")||"[]");
+  for(let i=0;i<60;i++){
+    let cell = document.createElement("div");
+    cell.className="cell";
+    if(history[i]) cell.classList.add("active");
+    map.appendChild(cell);
+  }
+}
+
+// --- Countdown ---
+function startCountdown(){
+  setInterval(()=>{
+    const now = new Date();
+    const target = new Date();
+    target.setHours(23,0,0,0);
+    if(now>target) target.setDate(target.getDate()+1);
+    const diff=target-now;
+    const h=Math.floor(diff/1000/60/60);
+    const m=Math.floor(diff/1000/60)%60;
+    const s=Math.floor(diff/1000)%60;
+    document.getElementById("countdown").innerText=`Next Audit Countdown: ${h}h ${m}m ${s}s`;
+  },1000);
+}
+
+// --- Admin reset ---
+function adminReset(){
+  const pass = prompt("Enter admin password to reset all audit history:");
+  if(pass !== ADMIN_PASSWORD){ alert("Wrong admin password"); return; }
+  if(confirm("Are you sure you want to reset all audit history? This cannot be undone.")){
+    localStorage.removeItem("auditHistory");
+    renderDashboard();
+    renderHistory();
+    updateHeatmap();
+    alert("All audit history has been reset.");
+  }
+}
+
+// --- Initialize ---
+checkDailyReset();
+renderDashboard();
+renderHistory();
+updateHeatmap();
+startCountdown();
 </script>
 
 </body>
