@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Audit Rotation Dashboard</title>
@@ -39,12 +38,85 @@ button.admin{background:#ff9800;}
 
 <h1>Audit Rotation Dashboard</h1>
 
-<p>Audit starts immediately at 11pm. Anyone who misses audit pays a fine or is removed. You should finish your LeetCode challenge by 10pm.</p>
+<p>Audit starts immediately at 11pm. Anyone who misses audit pays a fine
+ or is removed. You should finish your LeetCode challenge by 10pm.</p>
 
-<div id="dayLabel"></div>
-<div id="countdown">Next Audit Countdown</div>
+<div id="dayLabel">Friday Audit Rotation</div>
+<div id="countdown">Next Audit Countdown: 14h 3m 37s</div>
 
-<div class="dashboard" id="dashboard"></div>
+<div class="dashboard" id="dashboard"><div class="card">
+<div class="avatar"><img src="Audit%20Rotation%20Dashboard_files/Whats-App-Image-2026-03-10-at-18-02-27.jpg"></div>
+<div class="name">Christopher</div>
+<div class="audit">Audits →</div>
+<div class="audited-avatar"><img src="Audit%20Rotation%20Dashboard_files/Whats-App-Image-2026-03-10-at-17-56-09.jpg"></div>
+<div class="name">Enock Victor</div>
+<button onclick="markDone('Christopher','Enock Victor',this)">Audit Done</button>
+<button class="miss" onclick="markMiss('Christopher','Enock Victor',this)">Missed</button>
+</div><div class="card">
+<div class="avatar"><img src="Audit%20Rotation%20Dashboard_files/Whats-App-Image-2026-03-10-at-17-56-09.jpg"></div>
+<div class="name">Enock Victor</div>
+<div class="audit">Audits →</div>
+<div class="audited-avatar"><img src="Audit%20Rotation%20Dashboard_files/Screenshot-from-2026-03-10-18-37-37.png"></div>
+<div class="name">Emmanuel</div>
+<button onclick="markDone('Enock Victor','Emmanuel',this)">Audit Done</button>
+<button class="miss" onclick="markMiss('Enock Victor','Emmanuel',this)">Missed</button>
+</div><div class="card">
+<div class="avatar"><img src="Audit%20Rotation%20Dashboard_files/Screenshot-from-2026-03-10-18-37-37.png"></div>
+<div class="name">Emmanuel</div>
+<div class="audit">Audits →</div>
+<div class="audited-avatar"><img src="Audit%20Rotation%20Dashboard_files/Whats-App-Image-2026-03-10-at-18-02-26.jpg"></div>
+<div class="name">Roland</div>
+<button onclick="markDone('Emmanuel','Roland',this)">Audit Done</button>
+<button class="miss" onclick="markMiss('Emmanuel','Roland',this)">Missed</button>
+</div><div class="card">
+<div class="avatar"><img src="Audit%20Rotation%20Dashboard_files/Whats-App-Image-2026-03-10-at-18-02-26.jpg"></div>
+<div class="name">Roland</div>
+<div class="audit">Audits →</div>
+<div class="audited-avatar"><img src="Audit%20Rotation%20Dashboard_files/Screenshot-from-2026-03-10-18-32-33.png"></div>
+<div class="name">Celebrate</div>
+<button onclick="markDone('Roland','Celebrate',this)">Audit Done</button>
+<button class="miss" onclick="markMiss('Roland','Celebrate',this)">Missed</button>
+</div><div class="card">
+<div class="avatar"><img src="Audit%20Rotation%20Dashboard_files/Screenshot-from-2026-03-10-18-32-33.png"></div>
+<div class="name">Celebrate</div>
+<div class="audit">Audits →</div>
+<div class="audited-avatar"><img src="Audit%20Rotation%20Dashboard_files/Screenshot-from-2026-03-10-18-33-17.png"></div>
+<div class="name">Benjamin</div>
+<button onclick="markDone('Celebrate','Benjamin',this)">Audit Done</button>
+<button class="miss" onclick="markMiss('Celebrate','Benjamin',this)">Missed</button>
+</div><div class="card">
+<div class="avatar"><img src="Audit%20Rotation%20Dashboard_files/Screenshot-from-2026-03-10-18-33-17.png"></div>
+<div class="name">Benjamin</div>
+<div class="audit">Audits →</div>
+<div class="audited-avatar"><img src="Audit%20Rotation%20Dashboard_files/Screenshot-from-2026-03-10-18-34-00.png"></div>
+<div class="name">Solomon</div>
+<button onclick="markDone('Benjamin','Solomon',this)">Audit Done</button>
+<button class="miss" onclick="markMiss('Benjamin','Solomon',this)">Missed</button>
+</div><div class="card">
+<div class="avatar"><img src="Audit%20Rotation%20Dashboard_files/Screenshot-from-2026-03-10-18-34-00.png"></div>
+<div class="name">Solomon</div>
+<div class="audit">Audits →</div>
+<div class="audited-avatar"><img src="Audit%20Rotation%20Dashboard_files/Whats-App-Image-2026-03-10-at-17-50-51.jpg"></div>
+<div class="name">Osinaka</div>
+<button onclick="markDone('Solomon','Osinaka',this)">Audit Done</button>
+<button class="miss" onclick="markMiss('Solomon','Osinaka',this)">Missed</button>
+</div><div class="card">
+<div class="avatar"><img src="Audit%20Rotation%20Dashboard_files/Whats-App-Image-2026-03-10-at-17-50-51.jpg"></div>
+<div class="name">Osinaka</div>
+<div class="audit">Audits →</div>
+<div class="audited-avatar"><img src="Audit%20Rotation%20Dashboard_files/Whats-App-Image-2026-03-10-at-18-17-25.jpg"></div>
+<div class="name">Favour Hagin</div>
+<button onclick="markDone('Osinaka','Favour Hagin',this)">Audit Done</button>
+<button class="miss" onclick="markMiss('Osinaka','Favour Hagin',this)">Missed</button>
+</div><div class="card">
+<div class="avatar"><img src="Audit%20Rotation%20Dashboard_files/Whats-App-Image-2026-03-10-at-18-17-25.jpg"></div>
+<div class="name">Favour Hagin</div>
+<div class="audit">Audits →</div>
+<div class="audited-avatar"><img src="Audit%20Rotation%20Dashboard_files/Whats-App-Image-2026-03-10-at-18-02-27.jpg"></div>
+<div class="name">Christopher</div>
+<button onclick="markDone('Favour Hagin','Christopher',this)">Audit Done</button>
+<button class="miss" onclick="markMiss('Favour Hagin','Christopher',this)">Missed</button>
+</div></div>
 
 <div class="section">
 <h2>Audit History</h2>
@@ -54,7 +126,7 @@ button.admin{background:#ff9800;}
 
 <div class="section">
 <h2>Audit Consistency</h2>
-<div class="heatmap" id="heatmap"></div>
+<div class="heatmap" id="heatmap"><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div></div>
 </div>
 
 <script>
@@ -72,177 +144,209 @@ const users = [
 {name:"Solomon", img:"https://i.ibb.co/JwpKrztj/Screenshot-from-2026-03-10-18-34-00.png"}
 ];
 
-// --- Daily reset mechanism ---
 function checkDailyReset(){
-    const todayStr = new Date().toLocaleDateString();
-    const lastDate = localStorage.getItem("lastAuditDate");
-    if(lastDate !== todayStr){
-        localStorage.setItem("auditHistory","[]");
-        localStorage.setItem("lastAuditDate", todayStr);
-    }
+const todayStr=new Date().toLocaleDateString();
+const lastDate=localStorage.getItem("lastAuditDate");
+if(lastDate!==todayStr){
+localStorage.setItem("auditHistory","[]");
+localStorage.setItem("lastAuditDate",todayStr);
+}
 }
 
-// --- Rotation helpers ---
 function getAuditIndex(){
-  const startDate=new Date("2026-03-09"); const today=new Date();
-  let count=0;
-  for(let d=new Date(startDate); d<=today; d.setDate(d.getDate()+1)){
-    const day=d.getDay();
-    if(day===1||day===3||day===5) count++;
-  }
-  return count-1;
+const startDate=new Date("2026-03-09");
+const today=new Date();
+let count=0;
+for(let d=new Date(startDate);d<=today;d.setDate(d.getDate()+1)){
+const day=d.getDay();
+if(day===1||day===3||day===5) count++;
+}
+return count-1;
 }
 
+/* FIXED ROTATION */
 function generatePairs(step){
-  let arr=[...users];
-  for(let i=0;i<step;i++){
-    const last=arr.pop();
-    arr.splice(1,0,last);
-  }
-  return arr;
+const n = users.length;
+const rotated = [];
+
+for(let i=0;i<n;i++){
+rotated.push(users[(i+step)%n]);
 }
 
-// --- Dashboard rendering ---
+return rotated;
+}
+
 function renderDashboard(){
-  const todayNum = new Date().getDay();
-  const dashboard = document.getElementById("dashboard");
-  const label = document.getElementById("dayLabel");
+const todayNum=new Date().getDay();
+const dashboard=document.getElementById("dashboard");
+const label=document.getElementById("dayLabel");
 
-  if(todayNum!==1 && todayNum!==3 && todayNum!==5){
-    label.innerText = "🚫 No Audit Today (Mon • Wed • Fri at 11PM)";
-    dashboard.innerHTML = "";
-    return;
-  }
-
-  label.innerText = todayNum===1?"Monday Audit Rotation":todayNum===3?"Wednesday Audit Rotation":"Friday Audit Rotation";
-
-  const step = getAuditIndex();
-  const rotated = generatePairs(step);
-
-  let history = JSON.parse(localStorage.getItem("auditHistory")||"[]");
-  const todayStr = new Date().toLocaleDateString();
-
-  dashboard.innerHTML="";
-
-  rotated.forEach((auditorIndex,index)=>{
-    const auditor = rotated[index];
-    const auditee = rotated[(index+1)%rotated.length];
-    const card = document.createElement("div");
-    card.className="card";
-
-    // Highlight if already done today
-    if(history.find(item=>item.auditor===auditor.name && item.date===todayStr && !item.missed)){
-      card.classList.add("highlight");
-    }
-
-    // Check if buttons should be disabled
-    const doneDisabled = history.find(item=>item.auditor===auditor.name && item.auditee===auditee && item.date===todayStr && !item.missed);
-    const missDisabled = history.find(item=>item.auditor===auditor.name && item.auditee===auditee && item.date===todayStr && item.missed);
-
-    card.innerHTML=`
-      <div class="avatar">${auditor.img?`<img src="${auditor.img}">`:""}</div>
-      <div class="name">${auditor.name}</div>
-      <div class="audit">Audits →</div>
-      <div class="audited-avatar">${auditee.img?`<img src="${auditee.img}">`:""}</div>
-      <div class="name">${auditee.name}</div>
-      <button onclick="markDone('${auditor.name}','${auditee.name}', this)" ${doneDisabled?'disabled':''}>Audit Done</button>
-      <button class="miss" onclick="markMiss('${auditor.name}','${auditee.name}', this)" ${missDisabled?'disabled':''}>Missed</button>
-    `;
-    dashboard.appendChild(card);
-  });
+if(todayNum!==1&&todayNum!==3&&todayNum!==5){
+label.innerText="🚫 No Audit Today (Mon • Wed • Fri at 11PM)";
+dashboard.innerHTML="";
+return;
 }
 
-// --- Audit functions ---
-function markDone(auditor, auditee, btn){
-  const pass = prompt(`Enter password for ${auditor}:`);
-  if(pass !== auditor+"@1234"){ alert("Wrong password"); return; }
+label.innerText=todayNum===1?"Monday Audit Rotation":todayNum===3?"Wednesday Audit Rotation":"Friday Audit Rotation";
 
-  let history = JSON.parse(localStorage.getItem("auditHistory")||"[]");
-  const todayStr = new Date().toLocaleDateString();
-  if(history.find(item=>item.auditor===auditor && item.auditee===auditee && item.date===todayStr && !item.missed)){
-    alert("Audit already submitted today"); return;
-  }
+const step=getAuditIndex();
+const rotated=generatePairs(step);
 
-  history.push({auditor, auditee, date:todayStr});
-  localStorage.setItem("auditHistory", JSON.stringify(history));
+let history=JSON.parse(localStorage.getItem("auditHistory")||"[]");
+const todayStr=new Date().toLocaleDateString();
 
-  btn.disabled=true;
-  renderDashboard();
-  renderHistory();
-  updateHeatmap();
-  alert(`${auditor} audited ${auditee}`);
+dashboard.innerHTML="";
+
+rotated.forEach((auditor,index)=>{
+
+const auditee=rotated[(index+1)%rotated.length];
+
+const card=document.createElement("div");
+card.className="card";
+
+if(history.find(item=>item.auditor===auditor.name&&item.date===todayStr&&!item.missed)){
+card.classList.add("highlight");
 }
 
-function markMiss(auditor, auditee, btn){
-  const pass = prompt(`Enter password for ${auditor} to mark missed:`);
-  if(pass !== auditor+"@1234"){ alert("Wrong password"); return; }
+const doneDisabled=history.find(item=>item.auditor===auditor.name&&item.auditee===auditee.name&&item.date===todayStr&&!item.missed);
+const missDisabled=history.find(item=>item.auditor===auditor.name&&item.auditee===auditee.name&&item.date===todayStr&&item.missed);
 
-  let history = JSON.parse(localStorage.getItem("auditHistory")||"[]");
-  const todayStr = new Date().toLocaleDateString();
-  history.push({auditor, auditee, date:todayStr, missed:true});
-  localStorage.setItem("auditHistory", JSON.stringify(history));
+card.innerHTML=`
+<div class="avatar">${auditor.img?`<img src="${auditor.img}">`:""}</div>
+<div class="name">${auditor.name}</div>
+<div class="audit">Audits →</div>
+<div class="audited-avatar">${auditee.img?`<img src="${auditee.img}">`:""}</div>
+<div class="name">${auditee.name}</div>
+<button onclick="markDone('${auditor.name}','${auditee.name}',this)" ${doneDisabled?'disabled':''}>Audit Done</button>
+<button class="miss" onclick="markMiss('${auditor.name}','${auditee.name}',this)" ${missDisabled?'disabled':''}>Missed</button>
+`;
 
-  btn.disabled=true;
-  renderDashboard();
-  renderHistory();
-  updateHeatmap();
-  alert(`${auditor} missed auditing ${auditee}`);
+dashboard.appendChild(card);
+
+});
 }
 
-// --- History and heatmap ---
+function markDone(auditor,auditee,btn){
+
+const pass=prompt(`Enter password for ${auditor}:`);
+if(pass!==auditor+"@1234"){alert("Wrong password");return;}
+
+let history=JSON.parse(localStorage.getItem("auditHistory")||"[]");
+const todayStr=new Date().toLocaleDateString();
+
+if(history.find(item=>item.auditor===auditor&&item.auditee===auditee&&item.date===todayStr&&!item.missed)){
+alert("Audit already submitted today");return;
+}
+
+history.push({auditor,auditee,date:todayStr});
+localStorage.setItem("auditHistory",JSON.stringify(history));
+
+btn.disabled=true;
+
+renderDashboard();
+renderHistory();
+updateHeatmap();
+
+alert(`${auditor} audited ${auditee}`);
+}
+
+function markMiss(auditor,auditee,btn){
+
+const pass=prompt(`Enter password for ${auditor} to mark missed:`);
+if(pass!==auditor+"@1234"){alert("Wrong password");return;}
+
+let history=JSON.parse(localStorage.getItem("auditHistory")||"[]");
+const todayStr=new Date().toLocaleDateString();
+
+history.push({auditor,auditee,date:todayStr,missed:true});
+localStorage.setItem("auditHistory",JSON.stringify(history));
+
+btn.disabled=true;
+
+renderDashboard();
+renderHistory();
+updateHeatmap();
+
+alert(`${auditor} missed auditing ${auditee}`);
+}
+
 function renderHistory(){
-  let history = JSON.parse(localStorage.getItem("auditHistory")||"[]");
-  const historyList = history.slice(-15).reverse().map(h=>{
-    if(h.missed){
-      return `${h.date} - ${h.auditor}: ${h.auditee} MISSED ❌`;
-    } else {
-      return `${h.date} - ${h.auditor}: ${h.auditee} completed audit`;
-    }
-  }).join("<br>");
-  document.getElementById("history").innerHTML = historyList;
+
+let history=JSON.parse(localStorage.getItem("auditHistory")||"[]");
+
+const historyList=history.slice(-15).reverse().map(h=>{
+
+if(h.missed){
+return `${h.date} - ${h.auditor}: ${h.auditee} MISSED ❌`;
+}else{
+return `${h.date} - ${h.auditor}: ${h.auditee} completed audit`;
+}
+
+}).join("<br>");
+
+document.getElementById("history").innerHTML=historyList;
 }
 
 function updateHeatmap(){
-  const map = document.getElementById("heatmap");
-  map.innerHTML="";
-  let history = JSON.parse(localStorage.getItem("auditHistory")||"[]");
-  for(let i=0;i<60;i++){
-    let cell = document.createElement("div");
-    cell.className="cell";
-    if(history[i]) cell.classList.add("active");
-    map.appendChild(cell);
-  }
+
+const map=document.getElementById("heatmap");
+map.innerHTML="";
+
+let history=JSON.parse(localStorage.getItem("auditHistory")||"[]");
+
+for(let i=0;i<60;i++){
+
+let cell=document.createElement("div");
+cell.className="cell";
+
+if(history[i]) cell.classList.add("active");
+
+map.appendChild(cell);
+
+}
 }
 
-// --- Countdown ---
 function startCountdown(){
-  setInterval(()=>{
-    const now = new Date();
-    const target = new Date();
-    target.setHours(23,0,0,0);
-    if(now>target) target.setDate(target.getDate()+1);
-    const diff=target-now;
-    const h=Math.floor(diff/1000/60/60);
-    const m=Math.floor(diff/1000/60)%60;
-    const s=Math.floor(diff/1000)%60;
-    document.getElementById("countdown").innerText=`Next Audit Countdown: ${h}h ${m}m ${s}s`;
-  },1000);
+
+setInterval(()=>{
+
+const now=new Date();
+const target=new Date();
+
+target.setHours(23,0,0,0);
+
+if(now>target) target.setDate(target.getDate()+1);
+
+const diff=target-now;
+
+const h=Math.floor(diff/1000/60/60);
+const m=Math.floor(diff/1000/60)%60;
+const s=Math.floor(diff/1000)%60;
+
+document.getElementById("countdown").innerText=`Next Audit Countdown: ${h}h ${m}m ${s}s`;
+
+},1000);
 }
 
-// --- Admin reset ---
 function adminReset(){
-  const pass = prompt("Enter admin password to reset all audit history:");
-  if(pass !== ADMIN_PASSWORD){ alert("Wrong admin password"); return; }
-  if(confirm("Are you sure you want to reset all audit history? This cannot be undone.")){
-    localStorage.removeItem("auditHistory");
-    renderDashboard();
-    renderHistory();
-    updateHeatmap();
-    alert("All audit history has been reset.");
-  }
+
+const pass=prompt("Enter admin password to reset all audit history:");
+
+if(pass!==ADMIN_PASSWORD){alert("Wrong admin password");return;}
+
+if(confirm("Are you sure you want to reset all audit history? This cannot be undone.")){
+
+localStorage.removeItem("auditHistory");
+
+renderDashboard();
+renderHistory();
+updateHeatmap();
+
+alert("All audit history has been reset.");
+
+}
 }
 
-// --- Initialize ---
 checkDailyReset();
 renderDashboard();
 renderHistory();
@@ -250,5 +354,6 @@ updateHeatmap();
 startCountdown();
 </script>
 
-</body>
-</html>
+
+
+</body></html>
